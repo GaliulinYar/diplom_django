@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'users',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,10 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+
+# Директория, в которой будут храниться загруженные медиа-файлы
+MEDIA_ROOT = 'documents/'
+
+# URL-префикс для доступа к медиа-файлам через веб-приложение
+MEDIA_URL = '/documents/'
