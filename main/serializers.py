@@ -1,8 +1,6 @@
 from rest_framework import serializers
-
 from main.models import Document
-from users.models import User
-from users.serializers import UserSerializer
+from users.serializers import UserDocSerializer
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -15,32 +13,33 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 class DocumentListSerializer(serializers.ModelSerializer):
     """Сериализатор для прсмотра отправленных файлов"""
-    user = UserSerializer(read_only=True)
+    owner = UserDocSerializer(read_only=True)  # вложенный сериализатор
 
     class Meta:
         model = Document
-        fields = ['id', 'file_load', 'check_file', 'user']
+        fields = ['owner', 'id', 'file_load', 'check_file', 'checkout_file']
 
 
 class DocumentCheckSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    """Сериализатор для  админов на принятие или отклонение жокумента"""
+    user = UserDocSerializer(read_only=True)  # вложенный сериализатор
 
     class Meta:
         model = Document
-        fields = ['id', 'check_file', 'user']
+        fields = ['id', 'check_file', 'checkout_file', 'user']
 
 
 class DocumentIdSerializer(serializers.ModelSerializer):
-
+    """Сериализатор для удаления документов"""
     class Meta:
         model = Document
         fields = ['id']
 
 
 class DocumentAllSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    """Сериализатор для просмотра данных каждого документа отдельно"""
+    user = UserDocSerializer(read_only=True) # вложенный сериализатор
 
     class Meta:
         model = Document
         fields = '__all__'
-
