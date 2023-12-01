@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
 
 # Настройки срока действия токенов
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1200),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -156,3 +156,11 @@ MEDIA_ROOT = 'documents/'
 
 # URL-префикс для доступа к медиа-файлам через веб-приложение
 MEDIA_URL = '/documents/'
+
+# Данные для отправки писем
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+
